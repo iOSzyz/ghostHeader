@@ -42,7 +42,7 @@
  */
 - (void)panGestureRecognizer:(UIPanGestureRecognizer *)panGestureRecognizer{
     //获取拖拽手势在self.view 的拖拽姿态
-    CGPoint translation = [panGestureRecognizer translationInView:self.view.window];
+    CGPoint translation = [panGestureRecognizer translationInView:self.view];
     switch (panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan:{
             //记录起始点位置
@@ -60,7 +60,7 @@
     //改变panGestureRecognizer.view的中心点 就是self.imageView的中心点
     panGestureRecognizer.view.center = CGPointMake(panGestureRecognizer.view.center.x + translation.x, panGestureRecognizer.view.center.y + translation.y);
     //重置拖拽手势的姿态
-    [panGestureRecognizer setTranslation:CGPointZero inView:self.view.window];
+    [panGestureRecognizer setTranslation:CGPointZero inView:self.view];
     
     [self.ghostList enumerateObjectsUsingBlock:^(UIImageView * obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [UIView animateWithDuration:0.1 delay:0.1 * idx  options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -87,8 +87,8 @@
         img.layer.cornerRadius = _tx.layer.cornerRadius;
         img.layer.masksToBounds = YES;
         img.alpha = 1 - (i * 0.15);
-        img.transform = CGAffineTransformMakeScale(1 - 0.1 * i,1 - 0.1 * i);
-        [self.view.window addSubview:img];
+        img.transform = CGAffineTransformMakeScale(1 - 0.05 * i,1 - 0.05 * i);
+        [self.view addSubview:img];
         [self.ghostList addObject:img];
     }
 }
